@@ -1,48 +1,69 @@
 package com.gammatech.cafateria.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "order_items")
 public class OrderItem {
-	  private Coffee coffee;
-	    private Integer quantity;
-	    private Double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	    public Coffee getCoffee() {
-	        return coffee;
-	    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coffee_id", nullable = false)
+    private Coffee coffee;
 
-	    public void setCoffee(Coffee coffee) {
-	        this.coffee = coffee;
-	    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-	    public Integer getQuantity() {
-	        return quantity;
-	    }
+    @Column(nullable = false)
+    private Integer quantity;
 
-	    public void setQuantity(Integer quantity) {
-	        this.quantity = quantity;
-	    }
+    @Column(nullable = false)
+    private Double price;
 
-	    public Double getPrice() {
-	        return price;
-	    }
+    public Long getId() {
+        return id;
+    }
 
-	    public void setPrice(Double price) {
-	        this.price = price;
-	    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	    public Double getSubtotal() {
-	        return price * quantity;
-	    }
+    public Coffee getCoffee() {
+        return coffee;
+    }
 
-	    @Override
-	    public boolean equals(Object o) {
-	        if (this == o) return true;
-	        if (o == null || getClass() != o.getClass()) return false;
-	        OrderItem orderItem = (OrderItem) o;
-	        return coffee != null && coffee.equals(orderItem.coffee);
-	    }
+    public void setCoffee(Coffee coffee) {
+        this.coffee = coffee;
+    }
 
-	    @Override
-	    public int hashCode() {
-	        return coffee != null ? coffee.hashCode() : 0;
-	    }
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getSubtotal() {
+        return price * quantity;
+    }
 }

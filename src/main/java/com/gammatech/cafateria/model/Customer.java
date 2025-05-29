@@ -1,11 +1,31 @@
 package com.gammatech.cafateria.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String email;
-    private String direcion;
-    private String telefono;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private String phone;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -14,12 +34,12 @@ public class Customer {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -30,32 +50,27 @@ public class Customer {
         this.email = email;
     }
 
-    public String getDirecion() {
-        return direcion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDirecion(String direcion) {
-        this.direcion = direcion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return id != null && id.equals(customer.id);
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

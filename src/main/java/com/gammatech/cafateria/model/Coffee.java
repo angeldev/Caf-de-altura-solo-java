@@ -1,12 +1,34 @@
 package com.gammatech.cafateria.model;
 
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "coffees")
 public class Coffee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String origen;
-    private String nivelTostado;
-    private Double precio;
-    private Integer cantidadStock;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String origin;
+
+    @Column(name = "roast_level", nullable = false)
+    private String roastLevel;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "coffee", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -15,56 +37,52 @@ public class Coffee {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOrigen() {
-        return origen;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public String getNivelTostado() {
-        return nivelTostado;
+    public String getRoastLevel() {
+        return roastLevel;
     }
 
-    public void setNivelTostado(String NivelTostado) {
-        this.nivelTostado = NivelTostado;
+    public void setRoastLevel(String roastLevel) {
+        this.roastLevel = roastLevel;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public Integer getCantidadStock() {
-        return cantidadStock;
+    public Integer getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setCantidadStock(Integer cantidadStock) {
-        this.cantidadStock = cantidadStock;
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Coffee coffee = (Coffee) o;
-        return id != null && id.equals(coffee.id);
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
+

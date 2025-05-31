@@ -1,13 +1,14 @@
-package com.gammatech.cafateria;
+package com.gammatech.cafeteria;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CafateriaApplication {
+public class CafeteriaApplication {
+	 public CafeteriaApplication() {
+	   }
+	 
     public static void main(String[] args) {
-        SpringApplication.run(CafateriaApplication.class, args);
+        SpringApplication.run(CafeteriaApplication.class, args);
     }
-}
-
-
+} 
